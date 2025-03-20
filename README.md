@@ -8,21 +8,23 @@
 
 This is a demo of how you can connect Plasmic with [next-auth](https://authjs.dev) (recently renamed to auth.js) to implement authentication.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fplasmicapp%2Fplasmic-next-auth-example&env=AUTH_SECRET,AUTH_GOOGLE_SECRET,AUTH_GOOGLE_ID&envDescription=You%20would%20need%20to%20set%20up%20.env%20keys%20for%20next-auth%20to%20work%20properly&envLink=https%3A%2F%2Fgithub.com%2Fplasmicapp%2Fplasmic-next-auth-example%2Fblob%2Fmaster%2FREADME.md)
+
 ## Getting Started
 
-1. Copy `.env.example` to `.env.local`, fill in the project ID and token.
+1. Hit the Deploy with Vercel, that should create a separate repo for you
 
-2. Run `npx auth secret` to generate a secret for next-auth
+1. Configure the `plasmic-init` to use use project id and public api token
 
-3. Run `yarn` to install dependencies
+1. Run `npx auth secret` to generate a secret for next-auth
 
-4. Run the development server:
+1. [Get the API keys from google](https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid) to setup the Google OAuth.
 
-```bash
-yarn dev
-```
+1. Run `yarn` to install dependencies
 
-5. Open your browser to see the result at http://localhost:3000
+1. Run the development server: `yarn dev`
+
+1. Open your browser to see the result at http://localhost:3000
 
 ## Learn More
 

@@ -1,14 +1,12 @@
 import { initPlasmicLoader } from "@plasmicapp/loader-nextjs";
 import { UserSession } from "./components/CodeComponents/GlobalContexts/UserSession";
 
-const plasmicProjectId = process.env.PLASMIC_PROJECT_ID ?? "";
-const plasmicApiToken = process.env.PLASMIC_TOKEN ?? "";
-
 export const PLASMIC = initPlasmicLoader({
   projects: [
     {
-      id: plasmicProjectId,
-      token: plasmicApiToken,
+      id: "21yfH8a5FQ3G5YYAEZCSx",
+      token:
+        "bjRLboW5FpRUElrTHddRVH2XxFcckluvWqsa86akwL22M8VDEpEXP9V23fWKPVNCfkOZkjCXC0CFsxqyUyQ7g",
     },
   ],
   // Fetches the latest revisions, whether or not they were unpublished!
