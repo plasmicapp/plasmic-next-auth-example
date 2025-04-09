@@ -10,6 +10,9 @@ This is a demo of how you can connect Plasmic with [next-auth](https://authjs.de
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fplasmicapp%2Fplasmic-next-auth-example&env=AUTH_SECRET,AUTH_GOOGLE_SECRET,AUTH_GOOGLE_ID&envDescription=You%20would%20need%20to%20set%20up%20.env%20keys%20for%20next-auth%20to%20work%20properly&envLink=https%3A%2F%2Fgithub.com%2Fplasmicapp%2Fplasmic-next-auth-example%2Fblob%2Fmaster%2FREADME.md)
 
+Demo link - https://plasmic-next-auth-example.vercel.app/
+Project - https://studio.plasmic.app/projects/21yfH8a5FQ3G5YYAEZCSx
+
 ## Getting Started
 
 1. Hit the Deploy with Vercel, that should create a separate repo for you
