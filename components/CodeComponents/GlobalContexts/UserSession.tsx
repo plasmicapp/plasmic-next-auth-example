@@ -32,11 +32,7 @@ export function UserSession({
   return (
     <GlobalActionsProvider contextName="UserSession" actions={actions}>
       <DataProvider name="auth" data={session || {}}>
-        {/* This condition is placed in here to make sure that we don't see a flash of content for unauthenticated user
-         when user session is still loading. 
-         It prevents the page from being render on the server side!
-         If you need the SSR capabilities - remove the isLoaded condition, and consider using Codegen*/}
-        {isLoaded && children}
+        {children}
       </DataProvider>
     </GlobalActionsProvider>
   );
