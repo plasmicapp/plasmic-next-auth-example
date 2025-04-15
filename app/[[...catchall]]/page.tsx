@@ -3,6 +3,7 @@ import { PlasmicClientRootProvider } from "@/plasmic-init-client";
 import { PlasmicComponent } from "@plasmicapp/loader-nextjs";
 import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
+import { protectedRouteBase } from "@/config";
 
 export const revalidate = 300;
 
@@ -54,7 +55,11 @@ async function fetchData(catchall: string[] | undefined) {
 export async function generateStaticParams(): Promise<Params[]> {
   const pageModules = await PLASMIC.fetchPages();
   return pageModules
-    .filter((mod) => mod.path !== "/app" && !mod.path.startsWith("/app/"))
+    .filter(
+      (mod) =>
+        mod.path !== protectedRouteBase &&
+        !mod.path.startsWith(`${protectedRouteBase}/`),
+    )
     .map((mod) => {
       const catchall =
         mod.path === "/" ? undefined : mod.path.substring(1).split("/");

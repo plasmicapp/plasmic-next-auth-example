@@ -4,6 +4,7 @@ import { PlasmicClientRootProvider } from "@/plasmic-init-client";
 import { PlasmicComponent } from "@plasmicapp/loader-nextjs";
 import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
+import { protectedRouteBase } from "@/config";
 
 interface Params {
   /**
@@ -47,7 +48,9 @@ export default async function PlasmicLoaderPage({
 }
 
 async function fetchComponentData(catchall: string[] | undefined) {
-  const plasmicPath = catchall ? `/app/${catchall.join("/")}` : "/app";
+  const plasmicPath = catchall
+    ? `${protectedRouteBase}/${catchall.join("/")}`
+    : protectedRouteBase;
   const prefetchedData = await PLASMIC.maybeFetchComponentData(plasmicPath);
   if (!prefetchedData) {
     notFound();

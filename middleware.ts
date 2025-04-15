@@ -1,8 +1,8 @@
 import { auth } from "auth";
 import { NextResponse } from "next/server";
+import { protectedRouteBase } from "@/config";
 
 const authRoutes = ["/login"];
-const protectedRouteBase = "/app";
 
 export default auth(async (req) => {
   const { nextUrl } = req;
