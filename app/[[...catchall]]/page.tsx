@@ -53,11 +53,13 @@ async function fetchData(catchall: string[] | undefined) {
 
 export async function generateStaticParams(): Promise<Params[]> {
   const pageModules = await PLASMIC.fetchPages();
-  return pageModules.map((mod) => {
-    const catchall =
-      mod.path === "/" ? undefined : mod.path.substring(1).split("/");
-    return {
-      catchall,
-    };
-  });
+  return pageModules
+    .filter((mod) => mod.path !== "/app" && !mod.path.startsWith("/app/"))
+    .map((mod) => {
+      const catchall =
+        mod.path === "/" ? undefined : mod.path.substring(1).split("/");
+      return {
+        catchall,
+      };
+    });
 }
