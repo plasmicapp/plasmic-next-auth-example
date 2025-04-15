@@ -1,12 +1,17 @@
 import { PLASMIC } from "@/plasmic-init";
+import { auth } from "@/auth";
 import { PlasmicClientRootProvider } from "@/plasmic-init-client";
 import { PlasmicComponent } from "@plasmicapp/loader-nextjs";
 import { notFound } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 
-export const revalidate = 300;
-
 interface Params {
+  /**
+   * Array of path segments (e.g. `["a", "b"]` for "/a/b", or `undefined` if path is empty (i.e. "/").
+   *
+   * Note we use `undefined` instead of an empty array `[]` because
+   * Next.js would convert the empty array to `undefined` (not sure why they do that).
+   */
   catchall: string[] | undefined;
 }
 
@@ -17,21 +22,21 @@ export default async function PlasmicLoaderPage({
   params?: Params;
   searchParams?: Record<string, string | string[]>;
 }) {
-  const staticProps = await fetchData(params?.catchall);
-  if (!staticProps) {
+  const session = await auth();
+  const componentData = await fetchComponentData(params?.catchall);
+  if (!componentData) {
     notFound();
   }
 
-  const { prefetchedData } = staticProps;
-  if (prefetchedData.entryCompMetas.length === 0) {
+  if (componentData.entryCompMetas.length === 0) {
     notFound();
   }
 
-  const pageMeta = prefetchedData.entryCompMetas[0];
+  const pageMeta = componentData.entryCompMetas[0];
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <PlasmicClientRootProvider
-        prefetchedData={prefetchedData}
+        prefetchedData={componentData}
         pageParams={pageMeta.params}
         pageQuery={searchParams}
       >
@@ -41,23 +46,12 @@ export default async function PlasmicLoaderPage({
   );
 }
 
-async function fetchData(catchall: string[] | undefined) {
-  const plasmicPath = catchall ? `/${catchall.join("/")}` : "/";
+async function fetchComponentData(catchall: string[] | undefined) {
+  const plasmicPath = catchall ? `/app/${catchall.join("/")}` : "/app";
   const prefetchedData = await PLASMIC.maybeFetchComponentData(plasmicPath);
   if (!prefetchedData) {
     notFound();
   }
 
-  return { prefetchedData };
-}
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const pageModules = await PLASMIC.fetchPages();
-  return pageModules.map((mod) => {
-    const catchall =
-      mod.path === "/" ? undefined : mod.path.substring(1).split("/");
-    return {
-      catchall,
-    };
-  });
+  return prefetchedData;
 }
